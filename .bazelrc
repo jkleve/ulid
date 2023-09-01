@@ -1,0 +1,25 @@
+build --compilation_mode=dbg
+build --cxxopt="-std=c++17"
+
+build:release --compilation_mode=opt
+build:release --cxxopt="-std=c++17"
+
+test --compilation_mode=dbg
+test --test_output=errors
+
+build:benchmark --cache_test_results=no
+build:benchmark --compilation_mode=opt
+build:benchmark --test_output=all
+
+
+# Use our custom-configured c++ toolchain.
+build:clang_config --crosstool_top=//toolchain:clang_suite
+
+# Use --cpu as a differentiator.
+#build:clang_config --cpu=k8
+
+# Use the default Bazel C++ toolchain to build the tools used during the
+# build.
+build:clang_config --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+# build --action_env=BAZEL_CXXOPTS="-std=c++17"

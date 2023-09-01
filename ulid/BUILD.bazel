@@ -1,0 +1,35 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+
+cc_library(
+    name = "ulid",
+    hdrs = [
+        "ulid.h",
+        # "internal/string_gen.h", # @todo is there a private_hdrs attribute?
+    ],
+    srcs = [
+        "now_random_generator.cpp",
+        "ulid.cc",
+    ]
+)
+
+cc_test(
+    name = "ulid_test",
+    srcs = [
+        "ulid_test.cc",
+    ],
+    deps = [
+        ":ulid",
+        "@catch2//:catch2_main",
+    ],
+)
+
+cc_binary(
+    name = "ulid_benchmark",
+    srcs = [
+        "ulid_benchmark.cc",
+    ],
+    deps = [
+        ":ulid",
+        "@catch2//:catch2_main",
+    ],
+)
