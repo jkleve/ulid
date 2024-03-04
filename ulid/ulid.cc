@@ -1,5 +1,7 @@
 #include "ulid/ulid.h"
 
+#include <cassert>
+
 namespace ulid {
 
 namespace details {

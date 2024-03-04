@@ -12,6 +12,16 @@ cc_library(
     ]
 )
 
+cc_binary(
+    name = "ulid_example",
+    srcs = [
+        "ulid_example.cc",
+    ],
+    deps = [
+        ":ulid",
+    ],
+)
+
 cc_test(
     name = "ulid_test",
     srcs = [
