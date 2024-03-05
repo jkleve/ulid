@@ -4,11 +4,12 @@ cc_library(
     name = "ulid",
     hdrs = [
         "ulid.h",
-        # "internal/string_gen.h", # @todo is there a private_hdrs attribute?
     ],
     srcs = [
-        "now_random_generator.cpp",
+        "now_random_generator.cc",
         "ulid.cc",
+        "internal/encode.hh",
+        "internal/encode.cc",
     ]
 )
 

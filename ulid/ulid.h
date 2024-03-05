@@ -37,7 +37,7 @@ struct now_random_generator {
 	using generator_type = std::function<uint8_t()>;
 
 	/// ctors
-	now_random_generator();
+	now_random_generator() = default;
 	// explicit now_random_generator(generator_type generator);
 
 	ulid now() noexcept;
