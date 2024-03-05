@@ -8,8 +8,8 @@ namespace ulid {
 ulid now_random_generator::now() noexcept
 {
     ulid ulid{};
-	internal::encode_time(ulid);
-	internal::encode_entropy([this] { return distrib(gen); }, ulid);
+    internal::encode_time(ulid);
+    internal::encode_entropy([this] { return distrib(gen); }, ulid);
     return ulid;
 }
 
