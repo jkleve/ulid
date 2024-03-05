@@ -57,17 +57,17 @@ benchmark name                       samples       iterations    estimated
                                      mean          low mean      high mean
                                      std dev       low std dev   high std dev
 -------------------------------------------------------------------------------
-ulid::now_random_generator::now()              100           155      4.588 ms 
-                                        314.696 ns    296.227 ns    342.044 ns 
-                                        113.594 ns    84.4111 ns     149.47 ns 
+ulid::now_random_generator::now()              100           149      4.321 ms 
+                                        275.424 ns    272.456 ns    287.025 ns 
+                                        27.2423 ns     4.0894 ns    64.2933 ns 
                                                                                
-ulid::from_string()                            100          2776     4.4416 ms 
-                                        13.8779 ns    13.8636 ns    13.9348 ns 
-                                       0.133053 ns  0.0160179 ns   0.315292 ns 
+ulid::from_string()                            100          3081     4.0053 ms 
+                                        17.1893 ns    15.9926 ns    18.7415 ns 
+                                        6.95869 ns    5.68075 ns    8.35291 ns 
                                                                                
-ulid::to_string()                              100           518     4.5584 ms 
-                                        70.9005 ns    69.4134 ns     76.426 ns 
-                                         12.664 ns    3.07345 ns    28.8345 ns 
+ulid::to_string()                              100           570      4.275 ms 
+                                        71.1015 ns    69.4857 ns    75.0115 ns 
+                                        11.9934 ns    5.84828 ns    22.6972 ns 
                                                                                
 
 ===============================================================================

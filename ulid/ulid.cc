@@ -4,12 +4,12 @@
 
 namespace ulid {
 
-namespace details {
-ulid generate(std::function<uint8_t()>& gen) {
-    gen();
-    return ulid{};
-}
-}  // namespace details
+// namespace details {
+// ulid generate(std::function<uint8_t()>& gen) {
+//     gen();
+//     return ulid{};
+// }
+// }  // namespace details
 
 char constexpr char_map[] = {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
@@ -17,7 +17,7 @@ char constexpr char_map[] = {
     'T', 'V', 'W', 'X', 'Y', 'Z'
 };
 
-void marshal_to(ulid const& ulid, char dst[26]) {
+void to_string(ulid const& ulid, char dst[26]) {
 	// 10 byte timestamp
 	dst[0] = char_map[(static_cast<uint8_t>(ulid >> 120) & 224) >> 5];
 	dst[1] = char_map[static_cast<uint8_t>(ulid >> 120) & 31];
@@ -52,7 +52,7 @@ void marshal_to(ulid const& ulid, char dst[26]) {
 std::string to_string(ulid const& id) {
     char data[27];
     data[26] = '\0';
-    marshal_to(id, data);
+    to_string(id, data);
     return std::string(data);
 }
 
@@ -107,11 +107,11 @@ static const uint8_t dec[256] = {
 ulid from_string(std::string const& str) {
     assert(str.length() == 26);
     ulid id;
-    unmarshal_from(str.c_str(), id);
+    from_string(str.c_str(), id);
     return id;
 }
 
-void unmarshal_from(char const str[26], ulid& id) {
+void from_string(char const str[26], ulid& id) {
 	// timestamp
 	id = (dec[int(str[0])] << 5) | dec[int(str[1])];
 

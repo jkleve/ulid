@@ -34,11 +34,8 @@ char constexpr crockfords_base32_chars[] = {
 /// characters.
 ///
 struct now_random_generator {
-	using generator_type = std::function<uint8_t()>;
-
 	/// ctors
 	now_random_generator() = default;
-	// explicit now_random_generator(generator_type generator);
 
 	ulid now() noexcept;
 
@@ -46,90 +43,14 @@ struct now_random_generator {
     std::random_device rd{};
     std::mt19937 gen{rd()};
     std::uniform_int_distribution<> distrib{0, std::size(crockfords_base32_chars)};
-
-	// generator_type _generator;
-};
-
-// inline ulid now() {
-//     return ulid::internal::
-// }
-
-namespace details {
-    ulid generate(std::function<uint8_t()>& gen);
-}
-
-/// int_generator
-///
-/// @code[.cpp]
-///
-///   int_generator gen;
-///   auto id = gen();
-///
-template <typename GeneratorType>
-struct int_generator {
-    using result_type = ulid;
-
-    int_generator(GeneratorType gen) : _gen(std::move(gen)) {}
-
-    result_type operator()() noexcept {
-        return details::generate(_gen);
-    }
-
-  private:
-    GeneratorType _gen;
-};
-
-struct random_generator {
-    using result_type = ulid;
-    using generator_type = std::function<uint8_t()>;
-
-    random_generator();
-    explicit random_generator(generator_type gen);
-
-    result_type operator()() noexcept;
-
-  private:
-    generator_type _gen;
-};
-
-struct string_generator {
-    using result_type = ulid;
-
-    template <typename ch, typename char_traits, typename alloc>
-    result_type operator()(std::basic_string<ch, char_traits, alloc> const& s) const {
-        // return ulid::internal::string_gen(s);
-        using namespace std::chrono;
-
-        auto const now = time_point_cast<milliseconds>(steady_clock::now()).time_since_epoch().count();
-	    ulid t = static_cast<uint8_t>(now >> 40);
-	    t <<= 8;
-	    t |= static_cast<uint8_t>(now >> 32);
-	    t <<= 8;
-	    t |= static_cast<uint8_t>(now >> 24);
-	    t <<= 8;
-	    t |= static_cast<uint8_t>(now >> 16);
-	    t <<= 8;
-	    t |= static_cast<uint8_t>(now >> 8);
-	    t <<= 8;
-	    t |= static_cast<uint8_t>(now);
-	    t <<= 80;
-
-	    ulid mask = 1;
-	    mask <<= 80;
-	    mask--;
-
-        ulid ulid{};
-	    ulid = t | (ulid & mask);
-        return ulid;
-    }
 };
 
 /// to_string
-void marshal_to(ulid const& ulid, char dst[26]);
+void to_string(ulid const& ulid, char dst[26]);
 std::string to_string(ulid const& id);
 
 /// from_string
-void unmarshal_from(char const str[26], ulid& id);
+void from_string(char const str[26], ulid& id);
 ulid from_string(std::string const& str);
 
 }  // namespace ulid
